@@ -1,0 +1,670 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#ffffff" />
+<!-- iOS PWA meta tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="Onay" />
+<!-- PWA icons -->
+<link rel="apple-touch-icon" href="https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/onay1.png?v=1730808907134" />
+<!-- Add favicon -->
+<link rel="icon" type="image/png" href="https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/onay1.png?v=1730808907134" />
+<!-- Update viewport meta tag -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+	 body {
+		      margin: 0;
+		      min-height: 100vh;
+		      min-height: -webkit-fill-available;
+		      overflow: hidden;
+	  }
+    html {
+      height: -webkit-fill-available;
+    }
+    .image-container {
+      position: relative;
+      width: 100%; /* Make the container responsive */
+      max-width: 461px; /* Optional: Set a max width for larger screens */
+      margin: auto; /* Center the container */
+    }
+
+    .image-container img {
+      width: 100%; /* Image will scale with the container */
+      height: auto; /* Maintain aspect ratio */
+      display: block; /* Removes bottom space under the image */
+    }
+
+    .text-overlay {
+      position: absolute;
+      color: #000428;
+      font-size: 32px; /* Scale font size with viewport width */
+      font-weight: bold;
+      font-family: "Montserrat", sans-serif;
+      opacity: 1;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .text5 {
+    top: 17.7%;
+    left: 14.7%;
+    transform: translateY(-50%);
+    background-color: #ffffff;
+    width: 220px;
+    text-align: left;
+    color: #363c52;
+    font-size: 11px;
+    font-weight: 500;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .text6 {
+        top: 21.9%;
+        left: 44%;
+        transform: translateY(-50%);
+        background-color: #ffffff;
+        width: 43px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .text7 {
+        top: 21.7%;
+        left: 53%;
+        transform: translateY(-50%);
+        background-color: #f3f4fa;
+        color: #7c7e81;
+        min-width: 77px;
+        padding: 4px;
+        font-size: 15px;
+        border-radius: 5px;
+        font-weight: 500;
+        text-align: center;
+        text-transform: uppercase;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .text8 {
+        top: 25%;
+        left: 40.7%;
+        transform: translateY(-50%);
+        background-color: #ffffff;
+        width: 140px;
+        font-size: 14px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+    
+    .text9 {
+        top: 27.9%;
+        left: 40.7%;
+        transform: translateY(-50%);
+        background-color: #ffffff;
+        width: 40px;
+        text-align: left;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    
+    .text10 {
+        top: 30.7%;
+        left: 40.7%;
+        transform: translateY(-50%);
+        background-color: #ffffff;
+        width: 104px;
+        font-size: 14px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    /* Add styles for the yellow square and overlay image */
+    .trigger-square {
+      position: absolute;
+      width: 134px;
+      height: 170px;
+      background-color: #fefefe00;
+      bottom: 67%;
+      right: 4%;
+      cursor: pointer;
+      z-index: 3; /* Keep the yellow square clickable */
+    }
+
+    .overlay-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+      z-index: 1; /* Place overlay above text5-10 but below text1-4 */
+    }
+
+    /* Text overlays 1-4 should be above the overlay image */
+    .text1, .text2, .text3, .text4 {
+      z-index: 2;
+    }
+
+    /* Text overlays 5-10 should be below the overlay image */
+    .text5, .text6, .text7, .text8, .text9, .text10 {
+      z-index: 0;
+    }
+
+    /* Add transition to text overlays */
+    .text-overlay {
+      opacity: 1;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    /* Add classes for the animation state */
+    .overlay-active .overlay-image {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overlay-active .text1,
+    .overlay-active .text2,
+    .overlay-active .text3,
+    .overlay-active .text4 {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    /* Initial state for text1-4 */
+    .text1, .text2, .text3, .text4 {
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 2; /* Above overlay */
+    }
+
+    /* Overlay image styling */
+    .overlay-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+      z-index: 1; /* Between text1-4 and text5-10 */
+    }
+
+    /* Text5-10 always visible underneath */
+    .text5, .text6, .text7, .text8, .text9, .text10 {
+      z-index: 0; /* Below overlay */
+    }
+
+    /* Active state - bring in overlay and text1-4 */
+    .overlay-active .overlay-image,
+    .overlay-active .text1,
+    .overlay-active .text2,
+    .overlay-active .text3,
+    .overlay-active .text4 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .trigger-square {
+      z-index: 0; /* Keep square clickable */
+    }
+
+    /* Add transition for swipe reset */
+    .overlay-image,
+    .text1, .text2, .text3, .text4 {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Remove inline styles when not active */
+    .image-container:not(.overlay-active) .overlay-image,
+    .image-container:not(.overlay-active) .text1,
+    .image-container:not(.overlay-active) .text2,
+    .image-container:not(.overlay-active) .text3,
+    .image-container:not(.overlay-active) .text4 {
+      transform: translateY(100%) !important;
+      opacity: 0 !important;
+    }
+
+    /* Add styles for the dark background overlay */
+    .dark-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      z-index: 1; /* Above base content but below the overlay content */
+    }
+
+    /* Show dark overlay when active */
+    .overlay-active .dark-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Adjust other z-indices to work with dark overlay */
+    .overlay-image {
+      z-index: 2; /* Above dark overlay */
+    }
+
+    .text1, .text2, .text3, .text4 {
+      z-index: 3; /* Above overlay image */
+    }
+
+    .trigger-square {
+      z-index: 4; /* Above everything */
+    }
+
+    /* Initial state for overlay and text1-4 */
+    .overlay-image,
+    .text1, .text2, .text3, .text4 {
+      transform: translateY(100%);
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: transform, opacity;
+    }
+
+    /* Active state brings everything up together */
+    .overlay-active .overlay-image,
+    .overlay-active .text1,
+    .overlay-active .text2,
+    .overlay-active .text3,
+    .overlay-active .text4 {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* During swipe, update all elements together */
+    .text1, .text2, .text3, .text4 {
+      z-index: 2;
+    }
+
+    /* Remove any individual transform properties from text1-4 positions */
+    .text1 {
+      top: 37.8%;
+    left: 27.3%;
+    font-size: 30px;
+      /* background-color: #ffd900; */
+      width: 85px;
+      text-align: center;
+    }
+
+    .text2 {
+      top: 37.8%;
+      left: 45%;
+      font-size: 24px;
+      text-align: center;
+      width: 137px;
+      padding: 3px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      background-color: #ffe74a;
+    }
+
+    .text3 {
+      top: 47.2%;
+      left: 20%;
+      /* background-color: #ffd900; */
+      width: 290px;
+    }
+
+    .text4 {
+      top: 56.7%;
+      left: 23.5%;
+      /* background-color: #ffd900; */
+      width: 234px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* Initial state - everything visible in final position */
+    .overlay-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Text1-4 initial state */
+    .text1, .text2, .text3, .text4 {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 2;
+      will-change: transform, opacity;
+    }
+
+    /* Hidden state for both overlay and text1-4 */
+    .image-container:not(.overlay-active) .overlay-image,
+    .image-container:not(.overlay-active) .text1,
+    .image-container:not(.overlay-active) .text2,
+    .image-container:not(.overlay-active) .text3,
+    .image-container:not(.overlay-active) .text4 {
+      transform: translateY(100%) !important;
+      opacity: 0 !important;
+    }
+
+    /* Add overlay-active class by default */
+    .image-container {
+      position: relative;
+      width: 100%;
+      max-width: 461px;
+      margin: auto;
+    }
+
+    /* Remove focus outlines */
+    * {
+      outline: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .text-overlay:focus {
+      outline: none;
+    }
+
+    [contenteditable="true"]:focus {
+      outline: none;
+    }
+
+  </style>
+	
+</head>
+<body>
+
+<div class="image-container">
+  <div class="dark-overlay"></div>
+  <img src="https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/bg.png?v=1730789575330" alt="Background Image" class="main-image">
+  <img src="https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/overlay.png?v=1730810685004" alt="Overlay Image" class="overlay-image">
+  <div class="trigger-square"></div>
+  <div class="text-overlay text1" contenteditable="true">15E</div>
+  <div class="text-overlay text2" contenteditable="true">072ZV09</div>
+  <div class="text-overlay text3" contenteditable="true">02.09.2024   16:33</div>
+  <div class="text-overlay text4" contenteditable="true">V4DZRA4AJ</div>
+  <div class="ticket-one">
+  <div class="text-overlay text5" contenteditable="false">г. Темиртау, электронный билет</div>
+  <div class="text-overlay text6" contenteditable="true">02K</div>
+  <div class="text-overlay text7" contenteditable="true">894AAU09</div>
+  <div class="text-overlay text8" contenteditable="true">02.09.2024 16:33</div>
+  <div class="text-overlay text9" contenteditable="false">100 ₸</div>
+  <div class="text-overlay text10" contenteditable="true">VW57NQYDC</div></div>
+</div>
+	
+<script>
+  // Function to format the date as DD.MM.YYYY HH:MM
+  function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${day}.${month}.${year}&nbsp;&nbsp;${hours}:${minutes}`;
+  }
+
+  // Update both text elements on page load
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const text3Element = document.querySelector('.text3');
+    const text8Element = document.querySelector('.text8');
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    
+    text3Element.innerHTML = formattedDate;
+    text8Element.innerHTML = formattedDate;
+
+    const container = document.querySelector('.image-container');
+    container.classList.add('overlay-active');
+    
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    metaThemeColor.content = '#666666';
+
+    // Load saved values
+    loadValues();
+  });
+	
+  // Update click handler to toggle overlay
+  document.querySelector('.trigger-square').addEventListener('click', function() {
+    const container = document.querySelector('.image-container');
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
+    if (container.classList.contains('overlay-active')) {
+      // If overlay is active, remove it and reset theme color
+      container.classList.remove('overlay-active');
+      metaThemeColor.content = '#ffffff';
+    } else {
+      // If overlay is not active, add it and change theme color
+      container.classList.add('overlay-active');
+      metaThemeColor.content = '#666666';
+    }
+  });
+
+  // Add touch event handling
+  let touchStartY = 0;
+  let touchEndY = 0;
+  const container = document.querySelector('.image-container');
+
+  // Touch start event
+  container.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  // Touch move event
+  container.addEventListener('touchmove', (e) => {
+    if (!container.classList.contains('overlay-active')) return;
+    
+    touchEndY = e.touches[0].clientY;
+    const diffY = touchEndY - touchStartY;
+    
+    // If swiping down
+    if (diffY > 0) {
+      const opacity = Math.max(0, 1 - (diffY / 200));
+      const transform = Math.min(diffY, 200);
+      
+      // Apply exact same transform to overlay and text1-4
+      const elements = [
+        document.querySelector('.overlay-image'),
+        ...document.querySelectorAll('.text1, .text2, .text3, .text4')
+      ];
+      
+      elements.forEach(el => {
+        el.style.transform = `translateY(${transform}px)`;
+        el.style.opacity = opacity;
+      });
+      
+      // Prevent default scroll
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Touch end event
+  container.addEventListener('touchend', (e) => {
+    if (!container.classList.contains('overlay-active')) return;
+    
+    const diffY = touchEndY - touchStartY;
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
+    // If swipe distance is enough to trigger hide
+    if (diffY > 100) {
+      container.classList.remove('overlay-active');
+      metaThemeColor.content = '#ffffff'; // Reset theme color when swiped away
+    } else {
+      // Reset position if swipe wasn't far enough
+      document.querySelector('.overlay-image').style.transform = '';
+      document.querySelector('.overlay-image').style.opacity = '';
+      
+      document.querySelectorAll('.text1, .text2, .text3, .text4').forEach(text => {
+        text.style.transform = '';
+        text.style.opacity = '';
+      });
+    }
+    
+    // Reset touch coordinates
+    touchStartY = 0;
+    touchEndY = 0;
+  });
+
+  // Update the text9 click handler to save state
+  document.querySelector('.text9').addEventListener('click', function() {
+    const text5Element = document.querySelector('.text5');
+    const text9Element = document.querySelector('.text9');
+    
+    if (text5Element.textContent === 'г. Темиртау, электронный билет') {
+      text5Element.textContent = 'г. Караганда, электронный билет';
+      text9Element.textContent = '150 ₸';
+      localStorage.setItem('cityState', 'karaganda');
+    } else {
+      text5Element.textContent = 'г. Темиртау, электронный билет';
+      text9Element.textContent = '100 ₸';
+      localStorage.setItem('cityState', 'temirtau');
+    }
+  });
+
+  // Make text9 appear clickable
+  document.querySelector('.text9').style.cursor = 'pointer';
+
+  // Expand save function to handle all pairs
+  function saveValues(text1Value, text6Value, text2Value, text7Value, text4Value, text10Value) {
+    localStorage.setItem('text1Value', text1Value);
+    localStorage.setItem('text6Value', text6Value);
+    localStorage.setItem('text2Value', text2Value);
+    localStorage.setItem('text7Value', text7Value);
+    localStorage.setItem('text4Value', text4Value);
+    localStorage.setItem('text10Value', text10Value);
+  }
+
+  // Expand load function to handle all pairs
+  function loadValues() {
+    // Existing value loading
+    const text1Value = localStorage.getItem('text1Value') || '15E';
+    const text6Value = localStorage.getItem('text6Value') || '02K';
+    const text2Value = localStorage.getItem('text2Value') || '072ZV09';
+    const text7Value = localStorage.getItem('text7Value') || '894AAU09';
+    const text4Value = localStorage.getItem('text4Value') || 'V4DZRA4AJ';
+    const text10Value = localStorage.getItem('text10Value') || 'VW57NQYDC';
+    
+    // Load city state
+    const cityState = localStorage.getItem('cityState') || 'temirtau';
+    const text5Element = document.querySelector('.text5');
+    const text9Element = document.querySelector('.text9');
+    
+    if (cityState === 'karaganda') {
+      text5Element.textContent = 'г. Караганда, электронный билет';
+      text9Element.textContent = '100 ₸';
+    } else {
+      text5Element.textContent = 'г. Темиртау, электронный билет';
+      text9Element.textContent = '100 ₸';
+    }
+    
+    // Update all other elements
+    document.querySelector('.text1').textContent = text1Value;
+    document.querySelector('.text6').textContent = text6Value;
+    document.querySelector('.text2').textContent = text2Value;
+    document.querySelector('.text7').textContent = text7Value;
+    document.querySelector('.text4').textContent = text4Value;
+    document.querySelector('.text10').textContent = text10Value;
+  }
+
+  // Add input handlers for all pairs
+  document.querySelector('.text1').addEventListener('input', function() {
+    const text6Element = document.querySelector('.text6');
+    text6Element.textContent = this.textContent;
+    saveValues(
+      this.textContent,
+      text6Element.textContent,
+      document.querySelector('.text2').textContent,
+      document.querySelector('.text7').textContent,
+      document.querySelector('.text4').textContent,
+      document.querySelector('.text10').textContent
+    );
+  });
+
+  document.querySelector('.text6').addEventListener('input', function() {
+    const text1Element = document.querySelector('.text1');
+    text1Element.textContent = this.textContent;
+    saveValues(
+      text1Element.textContent,
+      this.textContent,
+      document.querySelector('.text2').textContent,
+      document.querySelector('.text7').textContent,
+      document.querySelector('.text4').textContent,
+      document.querySelector('.text10').textContent
+    );
+  });
+
+  // Add handlers for text2/text7 pair
+  document.querySelector('.text2').addEventListener('input', function() {
+    const text7Element = document.querySelector('.text7');
+    text7Element.textContent = this.textContent;
+    saveValues(
+      document.querySelector('.text1').textContent,
+      document.querySelector('.text6').textContent,
+      this.textContent,
+      text7Element.textContent,
+      document.querySelector('.text4').textContent,
+      document.querySelector('.text10').textContent
+    );
+  });
+
+  document.querySelector('.text7').addEventListener('input', function() {
+    const text2Element = document.querySelector('.text2');
+    text2Element.textContent = this.textContent;
+    saveValues(
+      document.querySelector('.text1').textContent,
+      document.querySelector('.text6').textContent,
+      text2Element.textContent,
+      this.textContent,
+      document.querySelector('.text4').textContent,
+      document.querySelector('.text10').textContent
+    );
+  });
+
+  // Add handlers for text4/text10 pair
+  document.querySelector('.text4').addEventListener('input', function() {
+    const text10Element = document.querySelector('.text10');
+    text10Element.textContent = this.textContent;
+    saveValues(
+      document.querySelector('.text1').textContent,
+      document.querySelector('.text6').textContent,
+      document.querySelector('.text2').textContent,
+      document.querySelector('.text7').textContent,
+      this.textContent,
+      text10Element.textContent
+    );
+  });
+
+  document.querySelector('.text10').addEventListener('input', function() {
+    const text4Element = document.querySelector('.text4');
+    text4Element.textContent = this.textContent;
+    saveValues(
+      document.querySelector('.text1').textContent,
+      document.querySelector('.text6').textContent,
+      document.querySelector('.text2').textContent,
+      document.querySelector('.text7').textContent,
+      text4Element.textContent,
+      this.textContent
+    );
+  });
+
+</script>
+
+</body>
+</html>
