@@ -1,19 +1,19 @@
 {
   "name": "Onay",
   "short_name": "Onay",
-  "start_url": "/",
+  "start_url": "/onay/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/onay1.png?v=1730808907134",
+      "src": "https://raw.githubusercontent.com/paradrop/onay/61d119082c45395297cfe809022e757cf0e3e425/onay1.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://cdn.glitch.global/aa85c37d-a07a-4383-a2d7-24ed3a41ae9b/onay.png?v=1730808821040",
+      "src": "https://raw.githubusercontent.com/paradrop/onay/61d119082c45395297cfe809022e757cf0e3e425/onay1.png",
       "sizes": "512x512",
       "type": "image/png"
     }
